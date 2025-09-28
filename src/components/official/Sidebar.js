@@ -1,21 +1,20 @@
-import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
-  MapPin, 
-  CheckCircle, 
-  Users, 
-  AlertTriangle, 
-  FileText, 
+  AlertTriangle,
+  CheckCircle,
+  FileText,
+  MapPin,
+  Users,
   LogOut,
   Waves,
-  X
+  X,
+  Shield
 } from 'lucide-react';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
-
   const handleLogout = () => {
     logout();
     navigate('/login');
@@ -26,6 +25,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { name: 'Verification Queue', href: '/official/verification', icon: CheckCircle },
     { name: 'Assignments', href: '/official/assignments', icon: Users },
     { name: 'Alerts & Advisories', href: '/official/alerts', icon: AlertTriangle },
+    { name: 'Social Media Alerts', href: '/official/social-alerts', icon: Shield },
     { name: 'Reports & Export', href: '/official/reports', icon: FileText },
   ];
 

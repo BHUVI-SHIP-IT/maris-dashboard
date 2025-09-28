@@ -6,6 +6,7 @@ import MapOverview from './pages/MapOverview';
 import VerificationQueue from './pages/VerificationQueue';
 import AssignmentTracking from './pages/AssignmentTracking';
 import AlertsAdvisories from './pages/AlertsAdvisories';
+import SocialMediaAlerts from './pages/SocialMediaAlerts';
 import ReportsExport from './pages/ReportsExport';
 
 const OfficialDashboard = () => {
@@ -30,6 +31,7 @@ const OfficialDashboard = () => {
               <Route path="/verification" element={<VerificationQueue />} />
               <Route path="/assignments" element={<AssignmentTracking />} />
               <Route path="/alerts" element={<AlertsAdvisories />} />
+              <Route path="/social-alerts" element={<SocialMediaAlerts />} />
               <Route path="/reports" element={<ReportsExport />} />
             </Routes>
           </div>

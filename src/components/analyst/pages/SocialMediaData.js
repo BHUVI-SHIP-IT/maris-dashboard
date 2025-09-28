@@ -9,11 +9,59 @@ const SocialMediaData = () => {
     timeRange: '24h'
   });
   const [lastRefresh, setLastRefresh] = useState(new Date());
+  const [pendingApprovals, setPendingApprovals] = useState([]);
+  const [approvedPosts, setApprovedPosts] = useState([]);
   
   const handleRefresh = () => {
     setLastRefresh(new Date());
     alert('Data refreshed successfully! Latest social media posts and official reports loaded.');
     console.log('Data refresh triggered at:', new Date().toISOString());
+  };
+
+  const handleApprovePost = (postId, approvalNotes = '') => {
+    const post = socialPosts.find(p => p.id === postId);
+    if (!post) return;
+
+    const approvedPost = {
+      ...post,
+      approvalStatus: 'approved',
+      approvedBy: 'Data Analyst',
+      approvedAt: new Date(),
+      approvalNotes: approvalNotes,
+      officialAlert: true
+    };
+
+    setApprovedPosts(prev => [...prev, approvedPost]);
+    
+    // In real app, would send to official dashboard
+    console.log('Post approved for official alerts:', approvedPost);
+    alert(`Post "${post.content.substring(0, 50)}..." has been approved and sent to Official Dashboard as an alert.`);
+  };
+
+  const handleRejectPost = (postId, rejectionReason) => {
+    if (!rejectionReason.trim()) {
+      alert('Please provide a reason for rejection.');
+      return;
+    }
+
+    const post = socialPosts.find(p => p.id === postId);
+    if (!post) return;
+
+    console.log('Post rejected:', { postId, reason: rejectionReason });
+    alert(`Post rejected: ${rejectionReason}`);
+  };
+
+  const handleRequestMoreInfo = (postId, infoRequest) => {
+    if (!infoRequest.trim()) {
+      alert('Please specify what additional information is needed.');
+      return;
+    }
+
+    const post = socialPosts.find(p => p.id === postId);
+    if (!post) return;
+
+    console.log('Additional info requested:', { postId, request: infoRequest });
+    alert(`Additional information requested: ${infoRequest}`);
   };
 
   const socialPosts = [
@@ -413,6 +461,7 @@ const SocialMediaData = () => {
     { id: 'merged', name: 'Merged Feed', icon: Globe },
     { id: 'social', name: 'Social Media', icon: Twitter },
     { id: 'verification', name: 'Post Verification', icon: AlertTriangle },
+    { id: 'approval', name: 'Approval Queue', icon: Shield },
     { id: 'incois', name: 'INCOIS', icon: Globe },
     { id: 'imd', name: 'IMD', icon: Globe },
     { id: 'isro', name: 'ISRO', icon: Globe }
@@ -680,6 +729,140 @@ const SocialMediaData = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          ) : activeTab === 'approval' ? (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium text-gray-900">Social Media Approval Queue</h3>
+                <span className="text-sm text-gray-500">Posts requiring approval for official alerts</span>
+              </div>
+              
+              {/* Approval Summary */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <div className="flex items-center">
+                    <AlertTriangle className="h-8 w-8 text-yellow-600 mr-3" />
+                    <div>
+                      <p className="text-sm text-yellow-600 font-medium">Pending Review</p>
+                      <p className="text-2xl font-bold text-yellow-700">{socialPosts.filter(p => !p.isFake && p.credibilityScore >= 0.6 && !p.verified).length}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <div className="flex items-center">
+                    <Shield className="h-8 w-8 text-green-600 mr-3" />
+                    <div>
+                      <p className="text-sm text-green-600 font-medium">Approved Today</p>
+                      <p className="text-2xl font-bold text-green-700">{approvedPosts.length}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center">
+                    <ExternalLink className="h-8 w-8 text-blue-600 mr-3" />
+                    <div>
+                      <p className="text-sm text-blue-600 font-medium">Sent to Officials</p>
+                      <p className="text-2xl font-bold text-blue-700">{approvedPosts.filter(p => p.officialAlert).length}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Posts Requiring Approval */}
+              <div className="space-y-4">
+                {socialPosts.filter(post => !post.isFake && post.credibilityScore >= 0.6 && !post.verified).map((post) => (
+                  <div key={post.id} className="border border-gray-200 rounded-lg p-4 bg-yellow-50">
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-shrink-0">
+                        {getSourceIcon(post.source)}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <span className="font-medium text-gray-900">{post.author}</span>
+                          <span className={`px-2 py-1 rounded-full text-xs ${getCredibilityColor(post.credibilityScore)}`}>
+                            {getCredibilityLabel(post.credibilityScore)} ({(post.credibilityScore * 100).toFixed(0)}%)
+                          </span>
+                          <span className={`px-2 py-1 rounded-full text-xs ${getSentimentColor(post.sentiment)}`}>
+                            {post.sentiment}
+                          </span>
+                        </div>
+                        <p className="text-gray-700 mb-3">{post.content}</p>
+                        
+                        {/* Approval Actions */}
+                        <div className="bg-white rounded-lg p-3 mb-3">
+                          <h4 className="text-sm font-medium text-gray-900 mb-2">Approval Decision</h4>
+                          <div className="flex space-x-2 mb-3">
+                            <button
+                              onClick={() => {
+                                const notes = prompt('Add approval notes (optional):');
+                                handleApprovePost(post.id, notes || '');
+                              }}
+                              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+                            >
+                              ✓ Approve for Official Alert
+                            </button>
+                            <button
+                              onClick={() => {
+                                const reason = prompt('Reason for rejection:');
+                                if (reason) handleRejectPost(post.id, reason);
+                              }}
+                              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
+                            >
+                              ✗ Reject
+                            </button>
+                            <button
+                              onClick={() => {
+                                const info = prompt('What additional information is needed?');
+                                if (info) handleRequestMoreInfo(post.id, info);
+                              }}
+                              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                            >
+                              ? Request More Info
+                            </button>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between text-sm text-gray-500">
+                          <div className="flex items-center space-x-4">
+                            <span>❤️ {post.engagement.likes}</span>
+                            <span>🔄 {post.engagement.shares}</span>
+                            <span>💬 {post.engagement.comments}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <span>{post.location}</span>
+                            <span>•</span>
+                            <span>{post.timestamp.toLocaleTimeString()}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Recently Approved Posts */}
+              {approvedPosts.length > 0 && (
+                <div className="mt-8">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Recently Approved Posts</h3>
+                  <div className="space-y-3">
+                    {approvedPosts.map((post) => (
+                      <div key={`approved-${post.id}`} className="border border-green-200 rounded-lg p-3 bg-green-50">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm font-medium text-gray-900">{post.content.substring(0, 80)}...</p>
+                            <p className="text-xs text-gray-600">Approved by {post.approvedBy} at {post.approvedAt.toLocaleTimeString()}</p>
+                          </div>
+                          <span className="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800 font-medium">
+                            ✓ Sent to Officials
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ) : activeTab === 'merged' || activeTab === 'social' ? (
             <div className="space-y-4">
