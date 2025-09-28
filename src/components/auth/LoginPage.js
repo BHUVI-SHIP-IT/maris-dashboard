@@ -14,24 +14,43 @@ const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    // Validate required fields
+    if (!credentials.username || !credentials.password || !credentials.role) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    
+    if (credentials.role === 'official' && !credentials.jurisdiction) {
+      alert('Please select a jurisdiction for official role.');
+      return;
+    }
+    
+    // Simple validation - in real app would validate against backend
+    if (credentials.username === 'admin' && credentials.password === 'password') {
       const userData = {
-        id: 1,
-        username: credentials.username,
+        name: 'Official User',
         role: credentials.role,
-        jurisdiction: credentials.jurisdiction,
-        name: credentials.role === 'official' ? 'District Official' : 'Data Analyst'
+        jurisdiction: credentials.jurisdiction
       };
       
       login(userData);
+      console.log('Login successful:', userData);
       navigate(credentials.role === 'official' ? '/official' : '/analyst');
-      setIsLoading(false);
-    }, 1000);
+    } else if (credentials.username === 'analyst' && credentials.password === 'password') {
+      const userData = {
+        name: 'Data Analyst',
+        role: credentials.role
+      };
+      
+      login(userData);
+      console.log('Login successful:', userData);
+      navigate('/analyst');
+    } else {
+      alert('Invalid credentials. Use admin/password or analyst/password');
+    }
   };
 
   const handleChange = (e) => {

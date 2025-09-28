@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, MapPin, Users, Clock, AlertTriangle } from 'lucide-react';
+import { Send, MapPin, Users, Clock, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 
 const AlertsAdvisories = () => {
   const [alertForm, setAlertForm] = useState({
@@ -16,19 +16,49 @@ const AlertsAdvisories = () => {
       id: 'cyclone',
       name: 'Cyclone Warning',
       title: 'Cyclone Alert - Immediate Action Required',
-      message: 'A cyclone is approaching your area. Please move to higher ground and follow evacuation procedures immediately.'
+      message: 'A cyclone is approaching your area. Please move to higher ground and follow evacuation procedures immediately. Secure all loose objects and stock up on essential supplies.'
     },
     {
       id: 'flood',
       name: 'Flood Alert',
       title: 'Flood Warning - Stay Safe',
-      message: 'Heavy rainfall has caused flooding in your area. Avoid low-lying areas and do not attempt to cross flooded roads.'
+      message: 'Heavy rainfall has caused flooding in your area. Avoid low-lying areas and do not attempt to cross flooded roads. Emergency shelters are available at designated locations.'
     },
     {
       id: 'pollution',
       name: 'Pollution Advisory',
       title: 'Water Contamination Alert',
-      message: 'Water contamination detected in your area. Avoid contact with seawater and report any unusual observations.'
+      message: 'Water contamination detected in your area. Avoid contact with seawater and report any unusual observations. Use bottled water for drinking and cooking.'
+    },
+    {
+      id: 'tsunami',
+      name: 'Tsunami Warning',
+      title: 'Tsunami Alert - Evacuate Immediately',
+      message: 'Tsunami waves detected. Move to higher ground immediately. Stay away from beaches and coastal areas until all-clear is given.'
+    },
+    {
+      id: 'oil_spill',
+      name: 'Oil Spill Alert',
+      title: 'Marine Pollution - Oil Spill Detected',
+      message: 'Oil spill reported in coastal waters. Avoid swimming and fishing in affected areas. Report any oil-covered wildlife to authorities.'
+    },
+    {
+      id: 'storm_surge',
+      name: 'Storm Surge Warning',
+      title: 'Storm Surge Alert - Coastal Flooding Expected',
+      message: 'Storm surge expected to cause coastal flooding. Evacuate low-lying coastal areas immediately. Secure boats and marine equipment.'
+    },
+    {
+      id: 'high_tide',
+      name: 'High Tide Advisory',
+      title: 'Extreme High Tide Warning',
+      message: 'Unusually high tides expected. Coastal roads may be flooded. Avoid parking near waterfront areas and use alternate routes.'
+    },
+    {
+      id: 'navigation',
+      name: 'Navigation Hazard',
+      title: 'Navigation Warning - Hazard Detected',
+      message: 'Navigation hazard reported in shipping lanes. All vessels advised to use alternate routes. Contact port authority for updated navigation charts.'
     }
   ];
 
@@ -42,8 +72,23 @@ const AlertsAdvisories = () => {
   };
 
   const handleSendAlert = () => {
+    if (!alertForm.title || !alertForm.message || !alertForm.targetArea) {
+      alert('Please fill in all required fields before sending the alert.');
+      return;
+    }
+    
     // In real app, would send alert via API
-    alert('Alert sent successfully to targeted area!');
+    const alertData = {
+      ...alertForm,
+      timestamp: new Date(),
+      id: Date.now(),
+      status: 'sent'
+    };
+    
+    console.log('Sending alert:', alertData);
+    alert(`Alert "${alertForm.title}" sent successfully to ${alertForm.targetArea}!`);
+    
+    // Reset form
     setAlertForm({
       template: '',
       title: '',
@@ -52,6 +97,74 @@ const AlertsAdvisories = () => {
       targetArea: '',
       coordinates: null
     });
+  };
+
+  // Recent alerts history
+  const recentAlerts = [
+    {
+      id: 1,
+      title: 'Cyclone Alert - Immediate Action Required',
+      targetArea: 'Mumbai Coastal Areas',
+      severity: 'critical',
+      sentAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
+      status: 'active',
+      recipients: 45000
+    },
+    {
+      id: 2,
+      title: 'High Tide Advisory',
+      targetArea: 'Chennai Marina Beach',
+      severity: 'medium',
+      sentAt: new Date(Date.now() - 4 * 60 * 60 * 1000),
+      status: 'resolved',
+      recipients: 12000
+    },
+    {
+      id: 3,
+      title: 'Oil Spill Alert',
+      targetArea: 'Kochi Port Area',
+      severity: 'high',
+      sentAt: new Date(Date.now() - 6 * 60 * 60 * 1000),
+      status: 'active',
+      recipients: 8500
+    },
+    {
+      id: 4,
+      title: 'Navigation Hazard Warning',
+      targetArea: 'Visakhapatnam Shipping Lane',
+      severity: 'medium',
+      sentAt: new Date(Date.now() - 8 * 60 * 60 * 1000),
+      status: 'resolved',
+      recipients: 3200
+    },
+    {
+      id: 5,
+      title: 'Storm Surge Warning',
+      targetArea: 'Kolkata Coastal Districts',
+      severity: 'high',
+      sentAt: new Date(Date.now() - 12 * 60 * 60 * 1000),
+      status: 'expired',
+      recipients: 28000
+    }
+  ];
+
+  const getSeverityColor = (severity) => {
+    switch (severity) {
+      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
+      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'low': return 'bg-green-100 text-green-800 border-green-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+  };
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case 'active': return <AlertTriangle className="h-4 w-4 text-red-500" />;
+      case 'resolved': return <CheckCircle className="h-4 w-4 text-green-500" />;
+      case 'expired': return <XCircle className="h-4 w-4 text-gray-500" />;
+      default: return <Clock className="h-4 w-4 text-blue-500" />;
+    }
   };
 
   return (
@@ -237,6 +350,57 @@ const AlertsAdvisories = () => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Recent Alerts History */}
+      <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-semibold text-gray-900">Recent Alerts History</h2>
+          <span className="text-sm text-gray-500">{recentAlerts.length} alerts in last 24 hours</span>
+        </div>
+        
+        <div className="space-y-4">
+          {recentAlerts.map((alert) => (
+            <div key={alert.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3 mb-2">
+                    {getStatusIcon(alert.status)}
+                    <h3 className="font-medium text-gray-900">{alert.title}</h3>
+                    <span className={`px-2 py-1 rounded-full text-xs border ${getSeverityColor(alert.severity)}`}>
+                      {alert.severity.toUpperCase()}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center space-x-6 text-sm text-gray-600">
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      {alert.targetArea}
+                    </div>
+                    <div className="flex items-center">
+                      <Users className="h-4 w-4 mr-1" />
+                      {alert.recipients.toLocaleString()} recipients
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="h-4 w-4 mr-1" />
+                      {alert.sentAt.toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="text-right">
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                    alert.status === 'active' ? 'bg-red-100 text-red-800' :
+                    alert.status === 'resolved' ? 'bg-green-100 text-green-800' :
+                    'bg-gray-100 text-gray-800'
+                  }`}>
+                    {alert.status.toUpperCase()}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -161,9 +161,9 @@ const NotificationPanel = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 overflow-hidden">
       <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose} />
       
-      <div className="absolute right-0 top-0 h-full w-96 bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
+      <div className="absolute right-0 top-0 h-full w-96 bg-white shadow-xl transform transition-transform duration-300 ease-in-out flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-maris-blue to-blue-600">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-maris-blue to-blue-600 flex-shrink-0">
           <div className="flex items-center space-x-3">
             <Bell className="h-6 w-6 text-white" />
             <div>
@@ -180,7 +180,7 @@ const NotificationPanel = ({ isOpen, onClose }) => {
         </div>
 
         {/* Filters */}
-        <div className="p-4 border-b border-gray-200 bg-gray-50">
+        <div className="p-4 border-b border-gray-200 bg-gray-50 flex-shrink-0">
           <div className="flex space-x-2 overflow-x-auto">
             {[
               { key: 'all', label: 'All', count: notifications.length },
@@ -205,7 +205,7 @@ const NotificationPanel = ({ isOpen, onClose }) => {
         </div>
 
         {/* Notifications List */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto min-h-0">
           {filteredNotifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-gray-500">
               <Bell className="h-12 w-12 mb-4 text-gray-300" />
@@ -277,7 +277,7 @@ const NotificationPanel = ({ isOpen, onClose }) => {
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 border-t border-gray-200 bg-gray-50">
+        <div className="p-4 border-t border-gray-200 bg-gray-50 flex-shrink-0">
           <div className="flex space-x-2">
             <button
               onClick={() => setNotifications(notifications.map(n => ({ ...n, read: true })))}

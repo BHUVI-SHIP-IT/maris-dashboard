@@ -56,11 +56,12 @@ const NationalMap = () => {
         setTimelineValue(prev => {
           if (prev >= 100) {
             setIsPlaying(false);
+            alert('Timeline playback completed! All historical data has been displayed.');
             return 100;
           }
-          return prev + 1;
+          return prev + 2; // Faster playback
         });
-      }, 100);
+      }, 150); // Slightly slower for better visibility
     }
     return () => clearInterval(interval);
   }, [isPlaying]);
@@ -196,6 +197,7 @@ const NationalMap = () => {
           </div>
         </div>
       </div>
+
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">

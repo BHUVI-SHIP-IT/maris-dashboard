@@ -66,6 +66,116 @@ const VerificationQueue = () => {
           urgency: 'high'
         },
         jurisdiction: 'mumbai'
+      },
+      {
+        id: 3,
+        title: 'Fishing Boat Distress Signal',
+        category: 'emergency',
+        predictedCategory: 'emergency',
+        confidence: 0.94,
+        severity: 'critical',
+        location: { lat: 19.0176, lng: 72.8562 },
+        address: '15 nautical miles from Gateway of India',
+        timestamp: new Date(Date.now() - 45 * 60 * 1000),
+        description: 'Fishing vessel "Sagar Rani" sent distress signal. Engine failure with 8 crew members on board. Weather conditions deteriorating rapidly.',
+        reporter: {
+          name: 'Maritime Rescue Center',
+          phone: '+91 22 2431 6558',
+          verified: true
+        },
+        media: [
+          { type: 'image', url: '/api/placeholder/400/300', caption: 'Last known vessel position' },
+          { type: 'image', url: '/api/placeholder/400/300', caption: 'Weather radar showing storm' }
+        ],
+        aiAnalysis: {
+          keywords: ['distress', 'emergency', 'rescue', 'vessel', 'storm'],
+          sentiment: 'urgent',
+          urgency: 'critical'
+        },
+        jurisdiction: 'mumbai'
+      },
+      {
+        id: 4,
+        title: 'Illegal Sand Mining Activity',
+        category: 'violation',
+        predictedCategory: 'violation',
+        confidence: 0.78,
+        severity: 'high',
+        location: { lat: 19.0330, lng: 72.8697 },
+        address: 'Mahim Creek, Mumbai',
+        timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
+        description: 'Unauthorized sand mining operations detected in protected mangrove area. Multiple trucks and excavators involved causing environmental damage.',
+        reporter: {
+          name: 'Environmental Officer',
+          phone: '+91 98765 43211',
+          verified: true
+        },
+        media: [
+          { type: 'image', url: '/api/placeholder/400/300', caption: 'Mining equipment on site' },
+          { type: 'video', url: '/api/placeholder/video', caption: 'Live mining activity footage' },
+          { type: 'image', url: '/api/placeholder/400/300', caption: 'Damaged mangrove area' }
+        ],
+        aiAnalysis: {
+          keywords: ['mining', 'illegal', 'environmental', 'violation', 'mangrove'],
+          sentiment: 'concerned',
+          urgency: 'high'
+        },
+        jurisdiction: 'mumbai'
+      },
+      {
+        id: 5,
+        title: 'Suspicious Vessel Movement',
+        category: 'security',
+        predictedCategory: 'security',
+        confidence: 0.71,
+        severity: 'medium',
+        location: { lat: 19.1136, lng: 72.9083 },
+        address: 'Bandra-Worli Sea Link vicinity',
+        timestamp: new Date(Date.now() - 90 * 60 * 1000),
+        description: 'Unidentified vessel spotted near restricted maritime zone without proper clearance. Vessel appears to be conducting unauthorized activities.',
+        reporter: {
+          name: 'Coast Guard Patrol',
+          phone: '+91 22 2431 6789',
+          verified: true
+        },
+        media: [
+          { type: 'image', url: '/api/placeholder/400/300', caption: 'Vessel identification photo' },
+          { type: 'image', url: '/api/placeholder/400/300', caption: 'GPS tracking data' }
+        ],
+        aiAnalysis: {
+          keywords: ['vessel', 'security', 'unauthorized', 'maritime', 'surveillance'],
+          sentiment: 'concerned',
+          urgency: 'medium'
+        },
+        jurisdiction: 'mumbai'
+      },
+      {
+        id: 6,
+        title: 'Marine Wildlife Stranding',
+        category: 'wildlife',
+        predictedCategory: 'wildlife',
+        confidence: 0.89,
+        severity: 'medium',
+        location: { lat: 19.1075, lng: 72.8263 },
+        address: 'Juhu Beach, Mumbai',
+        timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000),
+        description: 'Multiple dolphins found stranded on Juhu Beach. Appears to be related to recent sonar testing in the area. Immediate rescue operation required.',
+        reporter: {
+          name: 'Marine Biologist',
+          phone: '+91 98765 43212',
+          verified: true
+        },
+        media: [
+          { type: 'image', url: '/api/placeholder/400/300', caption: 'Stranded dolphins on beach' },
+          { type: 'video', url: '/api/placeholder/video', caption: 'Rescue operation in progress' },
+          { type: 'image', url: '/api/placeholder/400/300', caption: 'Marine life assessment' }
+        ],
+        aiAnalysis: {
+          keywords: ['wildlife', 'stranding', 'dolphins', 'rescue', 'marine'],
+          sentiment: 'urgent',
+          urgency: 'high'
+        },
+        jurisdiction: 'mumbai'
       }
       ],
       chennai: [
@@ -157,9 +267,33 @@ const VerificationQueue = () => {
   }, [user]);
 
   const handleVerification = (reportId, action, notes) => {
+    const report = reports.find(r => r.id === reportId);
+    if (!report) return;
+    
+    // Validate notes for rejection
+    if (action === 'reject' && !notes.trim()) {
+      alert('Please provide notes when rejecting a report.');
+      return;
+    }
+    
+    // Log the verification action
+    console.log('Verification action:', {
+      reportId,
+      action,
+      notes,
+      report: report.title,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Show confirmation message
+    const actionText = action === 'approve' ? 'approved' : 'rejected';
+    alert(`Report "${report.title}" has been ${actionText} successfully.`);
+    
+    // Remove from queue and reset form
     setReports(reports.filter(r => r.id !== reportId));
     setSelectedReport(null);
     setVerificationNotes('');
+    
     // In real app, would make API call to update report status
   };
 

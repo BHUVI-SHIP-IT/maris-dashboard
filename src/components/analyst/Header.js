@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Waves, Bell, LogOut, BarChart3 } from 'lucide-react';
-import NotificationPanel from '../common/NotificationPanel';
+import AnalystNotificationPanel from './AnalystNotificationPanel';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <>
-      <NotificationPanel 
+      <AnalystNotificationPanel 
         isOpen={notificationOpen} 
         onClose={() => setNotificationOpen(false)} 
       />
