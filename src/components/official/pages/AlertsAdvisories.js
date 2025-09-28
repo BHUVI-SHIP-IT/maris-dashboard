@@ -168,14 +168,14 @@ const AlertsAdvisories = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="h-full flex flex-col space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className="bg-white rounded-lg shadow-sm p-6 flex-shrink-0">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Alerts & Advisories</h1>
         <p className="text-gray-600">Issue emergency alerts and advisories to citizens</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0">
         {/* Alert Composer */}
         <div className="bg-white rounded-lg shadow-sm p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Compose Alert</h2>
@@ -354,13 +354,15 @@ const AlertsAdvisories = () => {
       </div>
 
       {/* Recent Alerts History */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Alerts History</h2>
-          <span className="text-sm text-gray-500">{recentAlerts.length} alerts in last 24 hours</span>
+      <div className="bg-white rounded-lg shadow-sm flex flex-col flex-shrink-0">
+        <div className="p-6 border-b border-gray-200 flex-shrink-0">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-gray-900">Recent Alerts History</h2>
+            <span className="text-sm text-gray-500">{recentAlerts.length} alerts in last 24 hours</span>
+          </div>
         </div>
         
-        <div className="space-y-4">
+        <div className="p-6 space-y-4 max-h-96 overflow-y-auto">
           {recentAlerts.map((alert) => (
             <div key={alert.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
               <div className="flex items-start justify-between">

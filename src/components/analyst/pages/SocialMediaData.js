@@ -468,9 +468,9 @@ const SocialMediaData = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="h-full flex flex-col space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className="bg-white rounded-lg shadow-sm p-6 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Social Media & External Data</h1>
@@ -494,7 +494,7 @@ const SocialMediaData = () => {
       </div>
 
       {/* Statistics Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 flex-shrink-0">
         <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
           <div className="flex items-center justify-between">
             <div>
@@ -551,8 +551,8 @@ const SocialMediaData = () => {
       </div>
 
       {/* Tabs and Filters */}
-      <div className="bg-white rounded-lg shadow-sm">
-        <div className="border-b border-gray-200">
+      <div className="bg-white rounded-lg shadow-sm flex flex-col flex-1 min-h-0">
+        <div className="border-b border-gray-200 flex-shrink-0">
           <nav className="flex space-x-8 px-6">
             {tabs.map((tab) => (
               <button
@@ -572,7 +572,7 @@ const SocialMediaData = () => {
         </div>
 
         {/* Filters */}
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-6 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <Filter className="h-4 w-4 text-gray-400" />
@@ -615,7 +615,7 @@ const SocialMediaData = () => {
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="flex-1 overflow-y-auto p-6 min-h-0">
           {activeTab === 'verification' ? (
             <div className="space-y-6">
               <div className="flex items-center justify-between">

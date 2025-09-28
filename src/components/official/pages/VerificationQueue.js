@@ -355,8 +355,8 @@ const VerificationQueue = () => {
         </div>
       </div>
 
-      {/* Report Details */}
-      <div className="flex-1 bg-white rounded-lg shadow-sm flex flex-col min-h-0">
+      {/* Tabs and Filters */}
+      <div className="bg-white rounded-lg shadow-sm flex flex-col flex-1 min-h-0">
         {selectedReport ? (
           <div className="h-full flex flex-col">
             {/* Header */}
