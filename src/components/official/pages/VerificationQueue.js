@@ -306,7 +306,7 @@ const VerificationQueue = () => {
   };
 
   return (
-    <div className="h-full flex flex-col lg:flex-row gap-4 lg:gap-6">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-screen">
       {/* Reports Queue */}
       <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-sm flex flex-col min-h-0">
         <div className="p-4 border-b border-gray-200 flex-shrink-0">
@@ -355,8 +355,8 @@ const VerificationQueue = () => {
         </div>
       </div>
 
-      {/* Tabs and Filters */}
-      <div className="bg-white rounded-lg shadow-sm flex flex-col flex-1 min-h-0">
+      {/* Report Details */}
+      <div className="flex-1 bg-white rounded-lg shadow-sm flex flex-col min-h-0">
         {selectedReport ? (
           <div className="h-full flex flex-col">
             {/* Header */}
