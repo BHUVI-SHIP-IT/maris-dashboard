@@ -468,17 +468,10 @@ const SocialMediaData = () => {
   ];
 
   return (
-<<<<<<< HEAD
     <div className="flex flex-col space-y-6 min-h-screen h-full">
       {/* Header */}
       <div className="bg-white rounded-lg shadow-sm p-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-=======
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <div className="flex items-center justify-between">
->>>>>>> c402aa22227b7c5568deabd56d3a714927613c1a
           <div>
             <h1 className="text-xl md:text-2xl font-bold text-gray-900">Social Media & External Data</h1>
             <p className="text-sm text-gray-600">Monitor social feeds and official data sources for maritime incidents</p>
@@ -500,15 +493,9 @@ const SocialMediaData = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
       {/* Quick Statistics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-3 text-white">
-=======
-      {/* Statistics Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
->>>>>>> c402aa22227b7c5568deabd56d3a714927613c1a
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100 text-xs">Social Posts</p>
@@ -550,15 +537,9 @@ const SocialMediaData = () => {
       </div>
 
       {/* Tabs and Filters */}
-<<<<<<< HEAD
       <div className="bg-white rounded-lg shadow-sm flex flex-col flex-1 min-h-0">
         <div className="border-b border-gray-200 ">
           <nav className="flex space-x-4 px-4 overflow-x-auto">
-=======
-      <div className="bg-white rounded-lg shadow-sm">
-        <div className="border-b border-gray-200">
-          <nav className="flex space-x-8 px-6">
->>>>>>> c402aa22227b7c5568deabd56d3a714927613c1a
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -577,13 +558,8 @@ const SocialMediaData = () => {
         </div>
 
         {/* Filters */}
-<<<<<<< HEAD
         <div className="p-4 border-b border-gray-200">
           <div className="flex flex-wrap items-center gap-3">
-=======
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex items-center space-x-4">
->>>>>>> c402aa22227b7c5568deabd56d3a714927613c1a
             <div className="flex items-center space-x-2">
               <Filter className="h-4 w-4 text-gray-400" />
               <select
@@ -625,11 +601,7 @@ const SocialMediaData = () => {
         </div>
 
         {/* Content */}
-<<<<<<< HEAD
-        <div className="flex-1 overflow-y-auto p-4 h-full min-h-screen">
-=======
-        <div className="p-6 max-h-96 overflow-y-auto">
->>>>>>> c402aa22227b7c5568deabd56d3a714927613c1a
+        <div className="flex-1 overflow-y-auto p-4 h-full min-h-screen h-full">
           {activeTab === 'verification' ? (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
