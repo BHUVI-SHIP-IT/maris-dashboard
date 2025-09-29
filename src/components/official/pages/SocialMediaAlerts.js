@@ -134,15 +134,15 @@ const SocialMediaAlerts = () => {
   });
 
   return (
-    <div className="h-full flex flex-col space-y-6">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-6 flex-shrink-0">
+      <div className="bg-white rounded-lg shadow-sm p-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Approved Social Media Alerts</h1>
         <p className="text-gray-600">Monitor and respond to analyst-approved social media posts requiring official attention</p>
       </div>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 flex-shrink-0">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
           <div className="flex items-center justify-between">
             <div>
@@ -185,7 +185,7 @@ const SocialMediaAlerts = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm p-6 flex-shrink-0">
+      <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Source</label>
@@ -230,15 +230,15 @@ const SocialMediaAlerts = () => {
       </div>
 
       {/* Approved Alerts List */}
-      <div className="bg-white rounded-lg shadow-sm flex flex-col flex-1 min-h-0">
-        <div className="p-6 border-b border-gray-200 flex-shrink-0">
+      <div className="bg-white rounded-lg shadow-sm">
+        <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">Approved Social Media Alerts</h2>
             <span className="text-sm text-gray-500">{filteredAlerts.length} alerts found</span>
           </div>
         </div>
         
-        <div className="divide-y divide-gray-200 flex-1 overflow-y-auto min-h-0">
+        <div className="divide-y divide-gray-200">
           {filteredAlerts.map((alert) => (
             <div key={alert.id} className="p-6 hover:bg-gray-50 transition-colors">
               <div className="flex items-start space-x-4">

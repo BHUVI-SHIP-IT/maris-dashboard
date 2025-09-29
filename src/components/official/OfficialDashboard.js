@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import MapOverview from './pages/MapOverview';
 import VerificationQueue from './pages/VerificationQueue';
+import CitizenReports from './pages/CitizenReports';
 import AssignmentTracking from './pages/AssignmentTracking';
 import AlertsAdvisories from './pages/AlertsAdvisories';
 import SocialMediaAlerts from './pages/SocialMediaAlerts';
@@ -29,6 +30,7 @@ const OfficialDashboard = () => {
               <Route path="/" element={<Navigate to="/official/map" replace />} />
               <Route path="/map" element={<MapOverview />} />
               <Route path="/verification" element={<VerificationQueue />} />
+              <Route path="/citizen-reports" element={<CitizenReports />} />
               <Route path="/assignments" element={<AssignmentTracking />} />
               <Route path="/alerts" element={<AlertsAdvisories />} />
               <Route path="/social-alerts" element={<SocialMediaAlerts />} />
