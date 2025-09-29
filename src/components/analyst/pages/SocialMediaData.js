@@ -468,13 +468,13 @@ const SocialMediaData = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col space-y-6">
+    <div className="flex flex-col space-y-6 min-h-screen h-full">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-6 flex-shrink-0">
-        <div className="flex items-center justify-between">
+      <div className="bg-white rounded-lg shadow-sm p-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Social Media & External Data</h1>
-            <p className="text-gray-600">Monitor social feeds and official data sources for maritime incidents</p>
+            <h1 className="text-xl md:text-2xl font-bold text-gray-900">Social Media & External Data</h1>
+            <p className="text-sm text-gray-600">Monitor social feeds and official data sources for maritime incidents</p>
           </div>
           
           {/* Refresh Button */}
@@ -484,7 +484,7 @@ const SocialMediaData = () => {
             </span>
             <button 
               onClick={handleRefresh}
-              className="flex items-center space-x-2 px-4 py-2 bg-maris-blue text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="flex items-center space-x-2 px-3 py-2 bg-maris-blue text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
             >
               <RefreshCw className="h-4 w-4" />
               <span>Refresh</span>
@@ -493,72 +493,58 @@ const SocialMediaData = () => {
         </div>
       </div>
 
-      {/* Statistics Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 flex-shrink-0">
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+      {/* Quick Statistics */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-3 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-100 text-sm">Social Posts</p>
-              <p className="text-2xl font-bold">{socialPosts.length}</p>
+              <p className="text-blue-100 text-xs">Social Posts</p>
+              <p className="text-lg font-bold">{socialPosts.length}</p>
             </div>
-            <Twitter className="h-8 w-8 text-blue-200" />
+            <Twitter className="h-5 w-5 text-blue-200" />
           </div>
         </div>
         
-        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 text-white">
+        <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-3 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-100 text-sm">Official Reports</p>
-              <p className="text-2xl font-bold">{externalData.length}</p>
+              <p className="text-red-100 text-xs">Critical Alerts</p>
+              <p className="text-lg font-bold">{externalData.filter(item => item.severity === 'critical').length}</p>
             </div>
-            <Globe className="h-8 w-8 text-green-200" />
+            <AlertTriangle className="h-5 w-5 text-red-200" />
           </div>
         </div>
         
-        <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-4 text-white">
+        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-3 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-red-100 text-sm">Critical Alerts</p>
-              <p className="text-2xl font-bold">{externalData.filter(item => item.severity === 'critical').length}</p>
+              <p className="text-green-100 text-xs">Verified</p>
+              <p className="text-lg font-bold">{socialPosts.filter(post => post.verified).length}</p>
             </div>
-            <div className="h-8 w-8 bg-red-400 bg-opacity-30 rounded-full flex items-center justify-center">
-              <div className="h-3 w-3 bg-white rounded-full animate-pulse"></div>
-            </div>
+            <Shield className="h-5 w-5 text-green-200" />
           </div>
         </div>
         
-        <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+        <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-lg p-3 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100 text-sm">Verified Sources</p>
-              <p className="text-2xl font-bold">{socialPosts.filter(post => post.verified).length}</p>
+              <p className="text-orange-100 text-xs">Suspicious</p>
+              <p className="text-lg font-bold">{socialPosts.filter(post => post.isFake).length}</p>
             </div>
-            <div className="h-8 w-8 bg-purple-400 bg-opacity-30 rounded-full flex items-center justify-center">
-              <span className="text-white text-xs">✓</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-lg p-4 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-orange-100 text-sm">Fake/Suspicious</p>
-              <p className="text-2xl font-bold">{socialPosts.filter(post => post.isFake).length}</p>
-            </div>
-            <AlertTriangle className="h-8 w-8 text-orange-200" />
+            <AlertTriangle className="h-5 w-5 text-orange-200" />
           </div>
         </div>
       </div>
 
       {/* Tabs and Filters */}
       <div className="bg-white rounded-lg shadow-sm flex flex-col flex-1 min-h-0">
-        <div className="border-b border-gray-200 flex-shrink-0">
-          <nav className="flex space-x-8 px-6">
+        <div className="border-b border-gray-200 ">
+          <nav className="flex space-x-4 px-4 overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm ${
+                className={`flex items-center space-x-2 py-3 px-2 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'border-maris-blue text-maris-blue'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -572,14 +558,14 @@ const SocialMediaData = () => {
         </div>
 
         {/* Filters */}
-        <div className="p-6 border-b border-gray-200 flex-shrink-0">
-          <div className="flex items-center space-x-4">
+        <div className="p-4 border-b border-gray-200">
+          <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center space-x-2">
               <Filter className="h-4 w-4 text-gray-400" />
               <select
                 value={filters.source}
                 onChange={(e) => setFilters({...filters, source: e.target.value})}
-                className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+                className="border border-gray-300 rounded-md px-2 py-1 text-sm"
               >
                 <option value="all">All Sources</option>
                 <option value="twitter">Twitter</option>
@@ -592,7 +578,7 @@ const SocialMediaData = () => {
             <select
               value={filters.sentiment}
               onChange={(e) => setFilters({...filters, sentiment: e.target.value})}
-              className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+              className="border border-gray-300 rounded-md px-2 py-1 text-sm"
             >
               <option value="all">All Sentiments</option>
               <option value="urgent">Urgent</option>
@@ -604,7 +590,7 @@ const SocialMediaData = () => {
             <select
               value={filters.timeRange}
               onChange={(e) => setFilters({...filters, timeRange: e.target.value})}
-              className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+              className="border border-gray-300 rounded-md px-2 py-1 text-sm"
             >
               <option value="1h">Last Hour</option>
               <option value="24h">Last 24 Hours</option>
@@ -615,7 +601,7 @@ const SocialMediaData = () => {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6 min-h-0">
+        <div className="flex-1 overflow-y-auto p-4 h-full min-h-screen">
           {activeTab === 'verification' ? (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
@@ -661,7 +647,7 @@ const SocialMediaData = () => {
                 {socialPosts.map((post) => (
                   <div key={post.id} className={`border rounded-lg p-4 ${post.isFake ? 'border-red-300 bg-red-50' : post.credibilityScore >= 0.7 ? 'border-green-300 bg-green-50' : 'border-yellow-300 bg-yellow-50'}`}>
                     <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0">
+                      <div className="">
                         {getSourceIcon(post.source)}
                       </div>
                       <div className="flex-1">
@@ -775,7 +761,7 @@ const SocialMediaData = () => {
                 {socialPosts.filter(post => !post.isFake && post.credibilityScore >= 0.6 && !post.verified).map((post) => (
                   <div key={post.id} className="border border-gray-200 rounded-lg p-4 bg-yellow-50">
                     <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0">
+                      <div className="">
                         {getSourceIcon(post.source)}
                       </div>
                       <div className="flex-1">
@@ -881,7 +867,7 @@ const SocialMediaData = () => {
               }).map((post) => (
                 <div key={post.id} className="border border-gray-200 rounded-lg p-4">
                   <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0">
+                    <div className="">
                       {getSourceIcon(post.source)}
                     </div>
                     <div className="flex-1">

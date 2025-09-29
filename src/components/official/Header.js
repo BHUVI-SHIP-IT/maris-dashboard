@@ -11,7 +11,7 @@ const Header = ({ setSidebarOpen }) => {
         isOpen={notificationOpen} 
         onClose={() => setNotificationOpen(false)} 
       />
-    <header className="bg-white shadow-sm border-b border-gray-200">
+    <header className="bg-white shadow border-b border-gray-200 sticky top-0 z-30 backdrop-blur-md">
       <div className="flex items-center justify-between h-16 px-6">
         {/* Left side */}
         <div className="flex items-center space-x-4">

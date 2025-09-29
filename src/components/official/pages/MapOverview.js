@@ -519,6 +519,7 @@ const MapOverview = () => {
           </div>
           
           <div className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
               <select
@@ -562,9 +563,11 @@ const MapOverview = () => {
                 <option value="resolved">Resolved</option>
               </select>
             </div>
+
+            </div>
             
             {/* Quick Filter Buttons */}
-            <div className="pt-2">
+            <div className="pt-2 flex flex-row">
               <p className="text-xs font-medium text-gray-600 mb-2">Quick Filters</p>
               <div className="flex flex-wrap gap-1">
                 <button

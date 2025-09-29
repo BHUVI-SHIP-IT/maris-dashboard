@@ -307,55 +307,6 @@ const VerificationQueue = () => {
 
   return (
     <div className="h-full flex flex-col lg:flex-row gap-4 lg:gap-6">
-      {/* Reports Queue */}
-      <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-sm flex flex-col min-h-0">
-        <div className="p-4 border-b border-gray-200 flex-shrink-0">
-          <h2 className="text-lg font-semibold text-gray-900">Verification Queue</h2>
-          <p className="text-sm text-gray-600">{reports.length} reports pending verification</p>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto min-h-0">
-          {reports.map((report) => (
-            <div
-              key={report.id}
-              onClick={() => setSelectedReport(report)}
-              className={`p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 ${
-                selectedReport?.id === report.id ? 'bg-blue-50 border-l-4 border-l-maris-blue' : ''
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h3 className="text-sm font-medium text-gray-900">{report.title}</h3>
-                  <p className="text-xs text-gray-600 mt-1">{report.address}</p>
-                  <div className="flex items-center mt-2 space-x-2">
-                    <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
-                      {report.category}
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      {report.confidence * 100}% confidence
-                    </span>
-                  </div>
-                  <div className="flex items-center mt-1 space-x-1">
-                    <Clock className="h-3 w-3 text-gray-400" />
-                    <span className="text-xs text-gray-500">
-                      {report.timestamp.toLocaleTimeString()}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-1">
-                  {report.media.map((media, idx) => (
-                    <div key={idx} className="text-gray-400">
-                      {getMediaIcon(media.type)}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Tabs and Filters */}
       <div className="bg-white rounded-lg shadow-sm flex flex-col flex-1 min-h-0">
         {selectedReport ? (
           <div className="h-full flex flex-col">
@@ -478,6 +429,53 @@ const VerificationQueue = () => {
             </div>
           </div>
         )}
+      </div>
+      {/* Reports Queue */}
+      <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-sm flex flex-col min-h-0">
+        <div className="p-4 border-b border-gray-200 flex-shrink-0">
+          <h2 className="text-lg font-semibold text-gray-900">Verification Queue</h2>
+          <p className="text-sm text-gray-600">{reports.length} reports pending verification</p>
+        </div>
+        
+        <div className="flex-1 overflow-y-auto min-h-0">
+          {reports.map((report) => (
+            <div
+              key={report.id}
+              onClick={() => setSelectedReport(report)}
+              className={`p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 ${
+                selectedReport?.id === report.id ? 'bg-blue-50 border-l-4 border-l-maris-blue' : ''
+              }`}
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-sm font-medium text-gray-900">{report.title}</h3>
+                  <p className="text-xs text-gray-600 mt-1">{report.address}</p>
+                  <div className="flex items-center mt-2 space-x-2">
+                    <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                      {report.category}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {report.confidence * 100}% confidence
+                    </span>
+                  </div>
+                  <div className="flex items-center mt-1 space-x-1">
+                    <Clock className="h-3 w-3 text-gray-400" />
+                    <span className="text-xs text-gray-500">
+                      {report.timestamp.toLocaleTimeString()}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-1">
+                  {report.media.map((media, idx) => (
+                    <div key={idx} className="text-gray-400">
+                      {getMediaIcon(media.type)}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -56,6 +56,33 @@ code {
   background: #94a3b8;
 }
 
+/* Custom scrollbar for Tailwind (scrollbar-thin, etc.) */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+.scrollbar-thumb-maris-blue\/40 {
+  scrollbar-color: #38bdf8 #f1f5f9;
+}
+.scrollbar-track-gray-100 {
+  scrollbar-color: #f1f5f9 #fff;
+}
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* For Webkit browsers */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  background: #f1f5f9;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #38bdf8;
+  border-radius: 3px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #0ea5e9;
+}
+
 /* Animations */
 @keyframes blob {
   0% {

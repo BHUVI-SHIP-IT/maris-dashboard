@@ -105,10 +105,82 @@ const NationalMap = () => {
         </div>
       </div>
 
+       {/* Statistics Cards */}
+
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
+        <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg shadow-sm p-4 lg:p-6 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-red-100 text-sm font-medium">Critical Zones</p>
+              <p className="text-2xl lg:text-3xl font-bold">{heatmapData.filter(d => d.intensity > 70).length}</p>
+              <p className="text-xs text-red-200 mt-1">Immediate Action Required</p>
+            </div>
+            <div className="bg-red-400 bg-opacity-30 rounded-full p-3">
+              <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg shadow-sm p-4 lg:p-6 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-yellow-100 text-sm font-medium">High Risk Areas</p>
+              <p className="text-2xl lg:text-3xl font-bold">{heatmapData.filter(d => d.intensity > 50 && d.intensity <= 70).length}</p>
+              <p className="text-xs text-yellow-200 mt-1">Monitor Closely</p>
+            </div>
+            <div className="bg-yellow-400 bg-opacity-30 rounded-full p-3">
+              <div className="w-3 h-3 bg-white rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-sm p-4 lg:p-6 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-blue-100 text-sm font-medium">Total Reports</p>
+              <p className="text-2xl lg:text-3xl font-bold">{heatmapData.reduce((sum, d) => sum + d.reports, 0)}</p>
+              <p className="text-xs text-blue-200 mt-1">Across All Regions</p>
+            </div>
+            <div className="bg-blue-400 bg-opacity-30 rounded-full p-3">
+              <div className="w-3 h-3 bg-white rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-sm p-4 lg:p-6 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-green-100 text-sm font-medium">Resolved</p>
+              <p className="text-2xl lg:text-3xl font-bold">{Math.floor(heatmapData.reduce((sum, d) => sum + d.reports, 0) * 0.68)}</p>
+              <p className="text-xs text-green-200 mt-1">68% Success Rate</p>
+            </div>
+            <div className="bg-green-400 bg-opacity-30 rounded-full p-3">
+              <div className="w-3 h-3 bg-white rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg shadow-sm p-4 lg:p-6 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-purple-100 text-sm font-medium">Active Cities</p>
+              <p className="text-2xl lg:text-3xl font-bold">{heatmapData.length}</p>
+              <p className="text-xs text-purple-200 mt-1">Monitoring Points</p>
+            </div>
+            <div className="bg-purple-400 bg-opacity-30 rounded-full p-3">
+              <div className="w-3 h-3 bg-white rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Map and Timeline */}
       <div className="bg-white rounded-lg shadow-sm">
         {/* Map */}
-        <div className="h-96 rounded-t-lg overflow-hidden">
+        <div className='p-6 border-b border-gray-200 flex items-center justify-between'>
+          <h1 className='text-2xl font-bold text-gray-900'>Map Overview</h1>
+        </div>
+        <div className="h-screen w-auto mx-7 rounded-t-lg overflow-hidden">
           <MapContainer
             center={[20.5937, 78.9629]} // Center of India
             zoom={5}
@@ -199,73 +271,8 @@ const NationalMap = () => {
       </div>
 
 
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
-        <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg shadow-sm p-4 lg:p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-red-100 text-sm font-medium">Critical Zones</p>
-              <p className="text-2xl lg:text-3xl font-bold">{heatmapData.filter(d => d.intensity > 70).length}</p>
-              <p className="text-xs text-red-200 mt-1">Immediate Action Required</p>
-            </div>
-            <div className="bg-red-400 bg-opacity-30 rounded-full p-3">
-              <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg shadow-sm p-4 lg:p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-yellow-100 text-sm font-medium">High Risk Areas</p>
-              <p className="text-2xl lg:text-3xl font-bold">{heatmapData.filter(d => d.intensity > 50 && d.intensity <= 70).length}</p>
-              <p className="text-xs text-yellow-200 mt-1">Monitor Closely</p>
-            </div>
-            <div className="bg-yellow-400 bg-opacity-30 rounded-full p-3">
-              <div className="w-3 h-3 bg-white rounded-full"></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-sm p-4 lg:p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-blue-100 text-sm font-medium">Total Reports</p>
-              <p className="text-2xl lg:text-3xl font-bold">{heatmapData.reduce((sum, d) => sum + d.reports, 0)}</p>
-              <p className="text-xs text-blue-200 mt-1">Across All Regions</p>
-            </div>
-            <div className="bg-blue-400 bg-opacity-30 rounded-full p-3">
-              <div className="w-3 h-3 bg-white rounded-full"></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-sm p-4 lg:p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-green-100 text-sm font-medium">Resolved</p>
-              <p className="text-2xl lg:text-3xl font-bold">{Math.floor(heatmapData.reduce((sum, d) => sum + d.reports, 0) * 0.68)}</p>
-              <p className="text-xs text-green-200 mt-1">68% Success Rate</p>
-            </div>
-            <div className="bg-green-400 bg-opacity-30 rounded-full p-3">
-              <div className="w-3 h-3 bg-white rounded-full"></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg shadow-sm p-4 lg:p-6 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-purple-100 text-sm font-medium">Active Cities</p>
-              <p className="text-2xl lg:text-3xl font-bold">{heatmapData.length}</p>
-              <p className="text-xs text-purple-200 mt-1">Monitoring Points</p>
-            </div>
-            <div className="bg-purple-400 bg-opacity-30 rounded-full p-3">
-              <div className="w-3 h-3 bg-white rounded-full"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+     
+      
     </div>
   );
 };

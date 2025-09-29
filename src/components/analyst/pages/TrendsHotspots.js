@@ -98,6 +98,8 @@ const TrendsHotspots = () => {
             <h1 className="text-2xl font-bold text-gray-900">Trends & Hotspots Analysis</h1>
             <p className="text-gray-600">Visualize patterns and emerging hotspots in maritime incidents</p>
           </div>
+
+          
           
           {/* Filters */}
           <div className="flex items-center space-x-4">
@@ -161,6 +163,8 @@ const TrendsHotspots = () => {
         </div>
       </div>
 
+      
+
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Category Distribution */}
@@ -207,9 +211,14 @@ const TrendsHotspots = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Hotspots Ranking */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Top Hotspots</h2>
+        
+
+        {/* Keyword Cloud */}
+      </div>
+
+      {/* Hotspots Ranking */}
+        <div className="bg-white rounded-lg shadow-sm p-6 w-full">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4 w-full">Top Hotspots</h2>
           <div className="space-y-4">
             {hotspotData.map((hotspot, index) => (
               <div key={hotspot.city} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
@@ -236,24 +245,6 @@ const TrendsHotspots = () => {
             ))}
           </div>
         </div>
-
-        {/* Keyword Cloud */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Trending Keywords</h2>
-          <div className="flex flex-wrap gap-3 justify-center items-center h-64">
-            {keywordData.map((keyword, index) => (
-              <span
-                key={keyword.text}
-                className="inline-block px-3 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium cursor-pointer hover:bg-blue-200 transition-colors"
-                style={{ fontSize: `${keyword.size / 2}px` }}
-                title={`${keyword.count} mentions`}
-              >
-                {keyword.text}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* Detailed Analytics */}
       <div className="bg-white rounded-lg shadow-sm p-6">
