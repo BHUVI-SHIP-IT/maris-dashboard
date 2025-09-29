@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Map, TrendingUp, Share2, Brain } from 'lucide-react';
+import { Map, TrendingUp, Share2, Brain, Phone } from 'lucide-react';
 
 const Navigation = () => {
   const navItems = [
     { name: 'National Map', href: '/analyst/national-map', icon: Map },
+    { name: 'Citizen Reports', href: '/analyst/citizen-reports', icon: Phone },
     { name: 'Trends & Hotspots', href: '/analyst/trends', icon: TrendingUp },
     { name: 'Social Media & External Data', href: '/analyst/social-data', icon: Share2 },
     { name: 'Predictive Analytics', href: '/analyst/predictive', icon: Brain },

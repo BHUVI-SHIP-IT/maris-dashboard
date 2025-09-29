@@ -9,7 +9,8 @@ import {
   LogOut,
   Waves,
   X,
-  Shield
+  Shield,
+  Phone
 } from 'lucide-react';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
@@ -23,6 +24,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const navigation = [
     { name: 'Map Overview', href: '/official/map', icon: MapPin },
     { name: 'Verification Queue', href: '/official/verification', icon: CheckCircle },
+    { name: 'Citizen Reports', href: '/official/citizen-reports', icon: Phone },
     { name: 'Assignments', href: '/official/assignments', icon: Users },
     { name: 'Alerts & Advisories', href: '/official/alerts', icon: AlertTriangle },
     { name: 'Social Media Alerts', href: '/official/social-alerts', icon: Shield },

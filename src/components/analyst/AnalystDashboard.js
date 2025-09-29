@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './Header';
 import Navigation from './Navigation';
 import NationalMap from './pages/NationalMap';
+import CitizenReports from './pages/CitizenReports';
 import TrendsHotspots from './pages/TrendsHotspots';
 import SocialMediaData from './pages/SocialMediaData';
 import PredictiveAnalytics from './pages/PredictiveAnalytics';
@@ -22,6 +23,7 @@ const AnalystDashboard = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/analyst/national-map" replace />} />
             <Route path="/national-map" element={<NationalMap />} />
+            <Route path="/citizen-reports" element={<CitizenReports />} />
             <Route path="/trends" element={<TrendsHotspots />} />
             <Route path="/social-data" element={<SocialMediaData />} />
             <Route path="/predictive" element={<PredictiveAnalytics />} />

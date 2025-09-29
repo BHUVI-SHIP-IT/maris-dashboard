@@ -67,9 +67,11 @@ const LoginPage = () => {
       
       {/* Overlay for better readability */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-transparent to-blue-900/30" />
-      <div className="max-w-md w-full space-y-8">
+      
+      {/* Centered Container */}
+      <div className="relative z-10 max-w-md w-full mx-auto space-y-8">
         {/* Header */}
-        <div className="text-center relative z-10">
+        <div className="text-center">
           <div className="flex justify-center items-center space-x-3 mb-4">
             <div className="bg-maris-blue p-3 rounded-full shadow-lg">
               <Waves className="h-8 w-8 text-white" />
@@ -80,7 +82,7 @@ const LoginPage = () => {
         </div>
 
         {/* Login Form */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-2xl p-8 border border-white/20 relative z-10">
+        <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-2xl p-8 border border-white/20">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Role Selection */}
             <div>
